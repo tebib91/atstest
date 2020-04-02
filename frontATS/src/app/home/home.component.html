@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <label for="cars">Choose a Category:</label>
+      <form>
+        <select [formControl]="searchTerms">
+          <option *ngFor="let item of category" [value]="item">
+            {{item}}
+          </option>
+        </select>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 my-2" *ngFor="let item of products;">
+      <div class="review-card" [routerLink]="['/detail', item?._id]">
+        <div class="top"><img [src]=item.imageUrl /></div>
+        <div class="middle">
+          <div class="rating d-flex">
+            <div *ngFor="let item of arrayConvert(avg(item.reviews))">
+              ★
+            </div>
+          </div>
+          <div class="title">{{item?.productName}}</div>
+        </div>
+        <div class="bottom">
+          <div class="column" columns="8">
+            <div class="date ml-2">{{item?.category}}</div>
+          </div>
+          <a class="column" columns="4" href="#">
+            <div class="link">Source</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-paginator [length]="100" [pageSize]="10" [pageIndex]="page" (page)="changePage($event)">
+      </mat-paginator>
+
+    </div>
+  </div>
+</div>
